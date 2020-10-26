@@ -27,17 +27,20 @@ public class CreateVerifyImageController extends HttpServlet {
         //获取httpSession对象
         HttpSession session = request.getSession();
         //将产生的四位随机字符串存放于session中（存放在session中的数据在一个会话范围内多个程序全局共享），以便验证
-        session.setAttribute("vCode",vCode);
+        session.setAttribute("verifyCode",vCode);
 
         //设置返回的内容
         response.setContentType("img/jpeg");
-        //调用封装的类方法生成指定验证码字符串的内存图片
+        //浏览器不缓存响应内容--验证码图片，点一次就要刷新一次，所以不能有缓存出现
+        response.setHeader("Pragma","No-cache");
+        response.setHeader("Cache-Control","no-cache");
+        //设置验证码失效时间
+        response.setDateHeader("Expires",0);
+        //以字节流发过去，交给img的src属性去解析即可
         BufferedImage image = creatVCodeImage.CreatImage(vCode);
-        //获取字节流对象
         ServletOutputStream out = response.getOutputStream();
         //将内存图像输出到浏览器，格式为JPEG
         ImageIO.write(image,"JPEG",out);
-        //刷新输出缓冲器（立即输出，而不用等待输出缓存满后才送至网络）
         out.flush();
         out.close();
     }

@@ -39,15 +39,20 @@ public class AutoLoginFilter implements Filter {
                     tag2 = true;
                 }
             }
-            System.out.println("用户名：" + cookieUserName);
-            System.out.println("密码：" + cookiePassword);
+
         }
 
 
+
+
         if(tag1 && tag2){ //如果找到匹配的Cookies
+
+            System.out.println("用户名：" + cookieUserName);
+            System.out.println("密码：" + cookiePassword);
+
             UserDao userDao = new UserDao();
             User user = userDao.findUserByUserName(cookieUserName);
-            if(cookiePassword.equals(user.getPassWord())){  //校验密码
+            if(cookiePassword.equals(user.getPassword())){  //校验密码
                 session.setAttribute("currentUserName",user.getUserName());
                 request.getRequestDispatcher("main.jsp").forward(req,resp);
             }

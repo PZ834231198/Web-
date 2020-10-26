@@ -21,33 +21,31 @@ public class PermissionFilter implements Filter {
         //将ServletRequest类型参数转换为HttpServletRequest类型
         HttpServletRequest request = (HttpServletRequest) req;
         String path = request.getServletPath();//获取请求的URL-Pattern地址("xxx.do或xxx.jsp")
-        System.out.println("请求地址URL-Pattern："+path);
+        System.out.println("请求地址URL-Pattern：" + path);
 
-        if(!notCheckPath.contains(path)){ //若请求的地址并不在 不需要过滤的列表 范围内，则需要判断是否已经登录
+        if (!notCheckPath.contains(path)) { //若请求的地址不在 不需要过滤的列表 范围内，则需要判断是否已经登录
             HttpSession session = request.getSession();
-
-            if(session.getAttribute("currentUserName") == null) { //未登录
-                request.setAttribute("errorInfo","对不起，您只是游客，没有权限访问！");
-                request.getRequestDispatcher("/error.jsp").forward(request,resp);
-            }else{ //已经登录，判断当前用户 能否访问 请求地址（权限过滤）
+            if (session.getAttribute("currentUser") == null) { //未登录
+                session.setAttribute("blockInfo","您只是游客，请先登录！");
+                request.getRequestDispatcher("block.jsp").forward(req,resp);
+            }else { //已经登录，验证是否有权限访问请求的资源
                 String currentUserName = session.getAttribute("currentUserName").toString();
                 ArrayList<Resource> resourcesList = ResourceDao.findResourceListByUserName(currentUserName);
-
                 boolean tag = false;
-                for(Resource res:resourcesList){ //将 path 与 resourcesList中的Resource对象的url属性 循环比对
+                for (Resource res : resourcesList) { //将 path 与 resourcesList中的Resource对象的url属性 循环比对
                     if (res.getUrl().equals(path)) {
                         tag = true;
                         break;
                     }
                 }
-                if(!tag){ //若请求的地址并不在 当前用户可访问的资源列表中 跳转至/error.jsp
-                    request.setAttribute("errorInfo","对不起，您没有权限访问该资源！");
-                    request.getRequestDispatcher("/block.jsp").forward(request,resp);
-                }else{ //请求的地址在 当前用户可访问的资源列表中，放行
+                if (!tag){
+                    session.setAttribute("blockInfo","您没有权限访问该资源！");
+                    request.getRequestDispatcher("block.jsp").forward(req,resp);
+                }else{
                     chain.doFilter(req,resp);
                 }
             }
-        }else{ //请求地址是不需要过滤的，直接放行
+        }else{  //若请求的地址在 不需要过滤的列表 范围内，则直接放行
             chain.doFilter(req,resp);
         }
     }

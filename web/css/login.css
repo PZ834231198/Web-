@@ -29,7 +29,7 @@ body{
     width: 200px;
     height: 30px;
     background: url("../images/登录界面/账户.png") no-repeat;
-    background-size:30px,30px;
+    background-size:28px,28px;
     padding-left: 30px;
 }
 
@@ -38,15 +38,21 @@ body{
     width: 200px;
     height: 30px;
     background: url("../images/登录界面/密码.png") no-repeat;
-    background-size: 30px,30px;
+    background-size: 28px,28px;
     padding-left: 30px;
 }
 
-.vCode{
+.vcode{
     margin-bottom: 20px;
     width: 95px;
     height: 30px;
     background: url("../images/登录界面/验证码.png") no-repeat;
-    background-size:30px,30px ;
+    background-size:28px,28px ;
     padding-left: 30px;
+}
+
+.autoLogin{
+	position: relative;
+	left: -45px;
+	cursor: pointer;
 }

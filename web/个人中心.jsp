@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>个人中心页面</title>
+		<title>个人中心</title>
 	</head>
 	<body>
 		<p style="position: absolute;left: 40%;top: 40%;">

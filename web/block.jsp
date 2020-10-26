@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>拦截页面</title>
-    <link href = "css/error.css" rel = "stylesheet" type="text/css">
+    <link href = "css/block.css" rel = "stylesheet" type="text/css">
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="div2">
-        <font color="red"><strong>${errorInfo} </strong></font>
+        <font color="red"><strong>${blockInfo} </strong></font>
         <br><br>
         请
         <label onClick="returnBack()" style="cursor: pointer;color: red;">

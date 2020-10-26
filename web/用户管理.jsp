@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>用户管理页面</title>
+		<title>用户管理</title>
 	</head>
 	<body>
 		<p style="position: absolute;left: 40%;top: 40%;">

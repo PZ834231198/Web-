@@ -19,7 +19,7 @@
 	</label>
 
 	<form method="GET" name="out">
-		<label onClick="Logout()" class="div4">
+		<label onClick="exit()" class="div4">
 			<font color="purple" size="4%">[安全退出]</font>
 		</label>
 	</form>
@@ -44,10 +44,5 @@
 	
 	<div class="line"/>
 
-	
 </body>
-
-
-
-
 </html>
